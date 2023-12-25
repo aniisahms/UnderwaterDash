@@ -5,9 +5,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public float playerSpeed;
-
+    
     [HideInInspector] public float coinsCount;
-    // [HideInInspector] public float garbageCount;
 
     [SerializeField] private EnergyBar energyBar;
     [SerializeField] private GarbageCollected garbageCollected;
@@ -21,7 +20,6 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         coinsCount = 0;
-        // garbageCount = 0;
         triggerCount = 0;
     }
 
@@ -43,30 +41,31 @@ public class Player : MonoBehaviour
         if (other.tag == "Obstacle")
         {
             triggerCount += 1;
-            Destroy(other.gameObject);
+            // Destroy(other.gameObject);
 
             if (triggerCount >= 3)
             {
                 Destroy(this.gameObject);
-                triggerCount = 0;
+                // triggerCount = 0;
+                Debug.Log("Trigger count: " + triggerCount);
             }
         }
-        if (other.tag == "Garbage")
+        else if (other.tag == "Garbage")
         {
             garbageCollected.garbageCount += 1;
-            Destroy(other.gameObject);
+            // Destroy(other.gameObject);
             Debug.Log("Garbage count: " + garbageCollected.garbageCount);
         }
-        if (other.tag == "Coins")
+        else if (other.tag == "Coins")
         {
             coinsCount += 5;
-            Destroy(other.gameObject);
+            // Destroy(other.gameObject);
             Debug.Log("Coins count: " + coinsCount);
         }
-        if (other.tag == "Energy")
+        else if (other.tag == "Energy")
         {
             energyBar.energy = energyBar.maxEnergy;
-            Destroy(other.gameObject);
+            // Destroy(other.gameObject);
             Debug.Log("Energy up to max: " + energyBar.energy);
         }
     }
