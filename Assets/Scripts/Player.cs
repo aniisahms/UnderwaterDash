@@ -6,19 +6,23 @@ public class Player : MonoBehaviour
 {
     public float playerSpeed;
 
-    [HideInInspector] public float coinsCount = 0;
-    [HideInInspector] public float garbageCount = 0;
+    [HideInInspector] public float coinsCount;
+    // [HideInInspector] public float garbageCount;
 
     [SerializeField] private EnergyBar energyBar;
+    [SerializeField] private GarbageCollected garbageCollected;
 
     private Rigidbody2D rb;
     private Vector2 playerDirection;
-    private float triggerCount = 0;
+    private float triggerCount;
 
     // Start is called before the first frame update
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        coinsCount = 0;
+        // garbageCount = 0;
+        triggerCount = 0;
     }
 
     // Update is called once per frame
@@ -49,9 +53,9 @@ public class Player : MonoBehaviour
         }
         if (other.tag == "Garbage")
         {
-            garbageCount += 1;
+            garbageCollected.garbageCount += 1;
             Destroy(other.gameObject);
-            Debug.Log("Garbage count: " + garbageCount);
+            Debug.Log("Garbage count: " + garbageCollected.garbageCount);
         }
         if (other.tag == "Coins")
         {
