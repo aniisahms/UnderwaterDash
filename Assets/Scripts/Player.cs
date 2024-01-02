@@ -5,11 +5,13 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public float playerSpeed;
+    public GameObject fingerPoint;
     
-    [HideInInspector] public float coinsCount;
+    // [HideInInspector] public float coinsCount;
 
     [SerializeField] private EnergyBar energyBar;
     [SerializeField] private GarbageCollected garbageCollected;
+    [SerializeField] private CoinsCollected coinsCollected;
 
     private Rigidbody2D rb;
     private Vector2 playerDirection;
@@ -19,15 +21,17 @@ public class Player : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        coinsCount = 0;
+        // coinsCount = 0;
         triggerCount = 0;
     }
 
     // Update is called once per frame
     private void Update()
     {
-        float directionY = Input.GetAxisRaw("Vertical");
-        playerDirection = new Vector2(0, directionY).normalized;
+        // float directionY = Input.GetAxisRaw("Vertical");
+        float directionY = fingerPoint.transform.position.y;
+        // playerDirection = new Vector2(0, directionY).normalized;
+        playerDirection = new Vector2(0, directionY);
     }
 
     // Called once per physics frame
@@ -47,20 +51,21 @@ public class Player : MonoBehaviour
             {
                 Destroy(this.gameObject);
                 // triggerCount = 0;
-                Debug.Log("Trigger count: " + triggerCount);
+                // Debug.Log("Trigger count: " + triggerCount);
             }
         }
         else if (other.tag == "Garbage")
         {
             garbageCollected.garbageCount += 1;
             // Destroy(other.gameObject);
-            Debug.Log("Garbage count: " + garbageCollected.garbageCount);
+            // Debug.Log("Garbage count: " + garbageCollected.garbageCount);
         }
         else if (other.tag == "Coins")
         {
-            coinsCount += 5;
+            // coinsCount += 5;
+            coinsCollected.coinsCount += 5;
             // Destroy(other.gameObject);
-            Debug.Log("Coins count: " + coinsCount);
+            // Debug.Log("Coins count: " + coinsCount);
         }
         else if (other.tag == "Energy")
         {

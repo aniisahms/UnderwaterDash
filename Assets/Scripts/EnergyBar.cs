@@ -24,7 +24,7 @@ public class EnergyBar : MonoBehaviour
         if (energy > 0)
         {
             energy -= Time.deltaTime;
-            Debug.Log("Energy: " + energy);
+            // Debug.Log("Energy: " + energy);
         }
         else if (energy <= 0)
         {
